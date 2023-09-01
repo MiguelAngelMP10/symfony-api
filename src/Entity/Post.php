@@ -28,6 +28,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
     ],
     // normalizationContext: ['groups' => ['read']], // GET
     denormalizationContext: ['groups' => ['write']], // POST, PUT, PATCH
+    paginationItemsPerPage: 8,
 )]
 class Post
 {
