@@ -12,6 +12,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[ApiResource(
@@ -38,15 +39,18 @@ class Post
 
     #[ORM\Column(length: 255)]
     #[Groups(['read', 'write'])]
+    #[NotBlank]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Groups(['read:item', 'write'])]
+    #[NotBlank]
     private ?string $body = null;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['read', 'write'])]
+    #[NotBlank]
     private ?Category $category = null;
 
     public function getId(): ?int
