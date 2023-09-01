@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
@@ -30,6 +33,12 @@ use Symfony\Component\Validator\Constraints\NotBlank;
     denormalizationContext: ['groups' => ['write']], // POST, PUT, PATCH
     paginationItemsPerPage: 8,
 )]
+#[ApiFilter(SearchFilter::class, properties: [
+    'title' => 'partial', // exact, partial, start, end, word_start
+    'body' => 'partial',
+    'category.name' => 'partial',
+])]
+#[ApiFilter(OrderFilter::class, properties: ['id'])]
 class Post
 {
     #[ORM\Id]
